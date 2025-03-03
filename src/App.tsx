@@ -1,7 +1,7 @@
 //import { useState } from "react";
 // import reactLogo from "./assets/react.svg";
 // import viteLogo from "/vite.svg";
-//import "./App.css";
+import "./App.css";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -71,68 +71,49 @@ function App() {
 
   return (
     <>
-      <div className="max-w-lg mx-auto p-6 bg-white rounded-xl shadow-md">
-      <h2 className="text-xl font-semibold mb-4">Employee Details Form</h2>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium">Name</label>
-          <input {...register("name")} className="w-full p-2 border rounded" required />
-          {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
+      <div className="max-w-lg  p-6 bg-blue rounded-xl shadow-md border-1">
+        <h2 className="text-xl font-semibold mb-4">Employee Details Form</h2>
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            <div className="flex items-center space-x-4">
+              <label className="block text-sm font-medium">Name</label>
+              {/* <input {...register("name")} className="w-90 border border-gray-300 p-3 rounded-lg outline-none focus:ring-2 focus:ring-blue-500" required /> */}
+              <input {...register("name")} className="w-full p-2 border rounded" required />
+              {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
+            </div>
+            <div className="flex items-center space-x-4">
+              <label className="block text-sm font-medium">Email</label>
+              <input {...register("email")} className="w-full p-2 border rounded" required />
+              {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
+            </div>
+            <div className="flex items-center space-x-4">
+              <label className="block text-sm font-medium">Phone Number</label>
+              <input {...register("phone")} className="w-full p-2 border rounded" />
+              {errors.phone && <p className="text-red-500 text-sm">{errors.phone.message}</p>}
+            </div>
+            <div className="flex items-center space-x-4">
+              <label className="block text-sm font-medium">Role</label>
+              <select {...register("role")} className="w-full p-2 border rounded" required>
+                <option value="">Select a role</option>
+                <option value="Developer">Developer</option>
+                <option value="Designer">Designer</option>
+                <option value="Manager">Manager</option>
+              </select>
+              {errors.role && <p className="text-red-500 text-sm">{errors.role.message}</p>}
+            </div>
+            <div className="flex items-center space-x-4">
+              <label className="block text-sm font-medium">Joining Date</label>
+              <input type="date" {...register("joiningDate")} className="w-full p-2 border rounded" required />
+              {errors.joiningDate && <p className="text-red-500 text-sm">{errors.joiningDate.message}</p>}
+            </div>
+            <button type="submit" className="w-full p-2 bg-blue-500 text-white rounded ">Submit</button>
+          </form>
         </div>
-        <div>
-          <label className="block text-sm font-medium">Email</label>
-          <input {...register("email")} className="w-full p-2 border rounded" required />
-          {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
-        </div>
-        <div>
-          <label className="block text-sm font-medium">Phone Number</label>
-          <input {...register("phone")} className="w-full p-2 border rounded" />
-          {errors.phone && <p className="text-red-500 text-sm">{errors.phone.message}</p>}
-        </div>
-        <div>
-          <label className="block text-sm font-medium">Role</label>
-          <select {...register("role")} className="w-full p-2 border rounded" required>
-            <option value="">Select a role</option>
-            <option value="Developer">Developer</option>
-            <option value="Designer">Designer</option>
-            <option value="Manager">Manager</option>
-          </select>
-          {errors.role && <p className="text-red-500 text-sm">{errors.role.message}</p>}
-        </div>
-        <div>
-          <label className="block text-sm font-medium">Joining Date</label>
-          <input type="date" {...register("joiningDate")} className="w-full p-2 border rounded" required />
-          {errors.joiningDate && <p className="text-red-500 text-sm">{errors.joiningDate.message}</p>}
-        </div>
-        <button type="submit" className="w-full p-2 bg-blue-500 text-white rounded">Submit</button>
-      </form>
-      <div className="ag-theme-alpine mt-6" style={{ height: 300, width: 1000 }}>
-        <AgGridReact rowData={employees} columnDefs={columns} modules={[ClientSideRowModelModule]} pagination={true} />
-      </div>
-    </div>
-
-      {/* <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-
-      <Button>Click me</Button> */}
+          {employees.length > 0 && (
+            <div className="mt-20 ag-theme-alpine" style={{ height: 300, width: "100%",marginTop:20}}>
+              <AgGridReact rowData={employees} columnDefs={columns} modules={[ClientSideRowModelModule]} pagination={true} />
+            </div>
+          )}
+      
     </>
   );
 }
